@@ -8,7 +8,8 @@ const Searchlist = props => {
         data={props.moviesList}
         caption={`Results for "${props.searchTerm}"`}
         btnText="Add movie"
-        handleClick={props.handleButtonClick}
+        handleClick={props.handleAddMovie}
+        type="searchList"
       />
     </div>
   );

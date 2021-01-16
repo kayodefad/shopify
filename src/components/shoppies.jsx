@@ -18,16 +18,34 @@ class Shoppies extends Component {
       `http://www.omdbapi.com/?apikey=55ecf9c4&s=${this.state.searchTerm}`
     );
 
-    this.setState({ movies: response.data.Search });
+    const movies = response.data.Search.map(movie => ({
+      ...movie,
+      added: false
+    }));
+
+    this.setState({ movies });
   };
 
-  handleButtonClick = movie => {
+  handleAddMovie = movie => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
+    const currentMovie = movies[index];
+    currentMovie.added = true;
+    this.setState({ movies });
     const nominationList = [...this.state.nominationList];
-    nominationList.push(movies[index]);
+    nominationList.push(currentMovie);
     this.setState({ nominationList });
-    // console.log(movies[index].Title);
+  };
+
+  handleRemoveMovie = movie => {
+    const nominationList = [...this.state.nominationList];
+    const updatedList = nominationList.filter(m => m !== movie);
+    this.setState({ nominationList: updatedList });
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    const currentMovie = movies[index];
+    currentMovie.added = false;
+    this.setState({ movies });
   };
 
   render() {
@@ -41,9 +59,12 @@ class Shoppies extends Component {
           <Searchlist
             moviesList={this.state.movies}
             searchTerm={this.state.searchTerm}
-            handleButtonClick={this.handleButtonClick}
+            handleAddMovie={this.handleAddMovie}
           />
-          <Nominationlist nominationList={this.state.nominationList} />
+          <Nominationlist
+            nominationList={this.state.nominationList}
+            handleRemoveMovie={this.handleRemoveMovie}
+          />
         </div>
       </>
     );

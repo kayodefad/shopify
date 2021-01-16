@@ -1,6 +1,6 @@
 import React from "react";
 
-const Listgroup = ({ data, caption, btnText, handleClick }) => {
+const Listgroup = ({ data, caption, btnText, handleClick, ...rest }) => {
   return (
     <div className="card-body">
       <p className="font-weight-bold">{caption}</p>
@@ -16,6 +16,7 @@ const Listgroup = ({ data, caption, btnText, handleClick }) => {
             <button
               onClick={() => handleClick(item)}
               className="btn btn-success btn-sm"
+              disabled={rest.type === "searchList" ? item.added : false}
             >
               {btnText}
             </button>

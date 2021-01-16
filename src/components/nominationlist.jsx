@@ -17,6 +17,7 @@ class Nominationlist extends Component {
           data={this.props.nominationList}
           caption="Nominations"
           btnText="remove"
+          handleClick={this.props.handleRemoveMovie}
         />
       </div>
     );
