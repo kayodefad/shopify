@@ -1,6 +1,6 @@
 import React from "react";
 
-const Listgroup = ({ data, caption, btnText }) => {
+const Listgroup = ({ data, caption, btnText, handleClick }) => {
   return (
     <div className="card-body">
       <p className="font-weight-bold">{caption}</p>
@@ -13,7 +13,12 @@ const Listgroup = ({ data, caption, btnText }) => {
             <span>
               {item.Title}, {item.Year}
             </span>
-            <button className="btn btn-success btn-sm">{btnText}</button>
+            <button
+              onClick={() => handleClick(item)}
+              className="btn btn-success btn-sm"
+            >
+              {btnText}
+            </button>
           </li>
         ))}
       </ul>

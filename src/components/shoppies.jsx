@@ -5,7 +5,7 @@ import Nominationlist from "./nominationlist";
 import axios from "axios";
 
 class Shoppies extends Component {
-  state = { searchTerm: "", movies: [] };
+  state = { searchTerm: "", movies: [], nominationList: [] };
 
   handleChange = ({ target: { value } }) => {
     this.setState({ searchTerm: value });
@@ -21,6 +21,15 @@ class Shoppies extends Component {
     this.setState({ movies: response.data.Search });
   };
 
+  handleButtonClick = movie => {
+    const movies = [...this.state.movies];
+    const index = movies.indexOf(movie);
+    const nominationList = [...this.state.nominationList];
+    nominationList.push(movies[index]);
+    this.setState({ nominationList });
+    // console.log(movies[index].Title);
+  };
+
   render() {
     return (
       <>
@@ -29,8 +38,12 @@ class Shoppies extends Component {
           handleSubmit={this.handleSubmit}
         />
         <div className="row">
-          <Searchlist moviesList={this.state.movies} searchTerm={this.state.searchTerm} />
-          <Nominationlist />
+          <Searchlist
+            moviesList={this.state.movies}
+            searchTerm={this.state.searchTerm}
+            handleButtonClick={this.handleButtonClick}
+          />
+          <Nominationlist nominationList={this.state.nominationList} />
         </div>
       </>
     );

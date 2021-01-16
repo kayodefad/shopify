@@ -14,7 +14,7 @@ class Nominationlist extends Component {
     return (
       <div className="card col-6">
         <Listgroup
-          data={this.state.nominations}
+          data={this.props.nominationList}
           caption="Nominations"
           btnText="remove"
         />
