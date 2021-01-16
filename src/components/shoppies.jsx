@@ -3,6 +3,8 @@ import Searchbar from "./searchbar";
 import Searchlist from "./searchlist";
 import Nominationlist from "./nominationlist";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Movie from "./movie";
 
 class Shoppies extends Component {
   state = { searchTerm: "", movies: [], nominationList: [] };
@@ -18,10 +20,16 @@ class Shoppies extends Component {
       `http://www.omdbapi.com/?apikey=55ecf9c4&s=${this.state.searchTerm}`
     );
 
-    const movies = response.data.Search.map(movie => ({
-      ...movie,
-      added: false
-    }));
+    const movies = response.data.Search.map(m => {
+      const movie = this.state.nominationList.find(
+        mov => mov.imdbID === m.imdbID
+      );
+
+      return {
+        ...m,
+        added: movie ? true : false
+      };
+    });
 
     this.setState({ movies });
   };
@@ -30,21 +38,27 @@ class Shoppies extends Component {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     const currentMovie = movies[index];
-    currentMovie.added = true;
     this.setState({ movies });
-    const nominationList = [...this.state.nominationList];
-    nominationList.push(currentMovie);
-    this.setState({ nominationList });
+    if (this.state.nominationList.length < 5) {
+      const nominationList = [...this.state.nominationList];
+      nominationList.push(currentMovie);
+      this.setState({ nominationList });
+      toast.success("Movie added successfully");
+      currentMovie.added = true;
+      return;
+    }
+    toast.error("You have 5 nominations already");
   };
 
   handleRemoveMovie = movie => {
     const nominationList = [...this.state.nominationList];
     const updatedList = nominationList.filter(m => m !== movie);
     this.setState({ nominationList: updatedList });
+    toast.success("Movie removed successfully");
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     const currentMovie = movies[index];
-    currentMovie.added = false;
+    if (currentMovie) currentMovie.added = false;
     this.setState({ movies });
   };
 
@@ -55,6 +69,7 @@ class Shoppies extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
+        <Movie />
         <div className="row">
           <Searchlist
             moviesList={this.state.movies}

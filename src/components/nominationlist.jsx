@@ -12,7 +12,7 @@ class Nominationlist extends Component {
 
   render() {
     return (
-      <div className="card col-6">
+      <div className="card col-5">
         <Listgroup
           data={this.props.nominationList}
           caption="Nominations"

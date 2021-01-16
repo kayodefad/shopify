@@ -8,9 +8,9 @@ const Listgroup = ({ data, caption, btnText, handleClick, ...rest }) => {
         {data.map(item => (
           <li
             key={item.imdbID}
-            className="list-group-item d-flex justify-content-between"
+            className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <span>
+            <span className="w-70">
               {item.Title}, {item.Year}
             </span>
             <button
