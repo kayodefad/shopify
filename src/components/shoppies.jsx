@@ -4,7 +4,7 @@ import Searchlist from "./searchlist";
 import Nominationlist from "./nominationlist";
 import {
   addToLocalStorage,
-  removeFromLocalStorage
+  removeFromLocalStorage,
 } from "../utils/localStorageUtil";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,22 +17,22 @@ class Shoppies extends Component {
     loading: false,
     nominationList: [],
     currentPage: 1,
-    numberPerPage: 3
+    numberPerPage: 3,
   };
 
   componentDidMount() {
     if (localStorage.getItem("nominatedMovies")) {
       this.setState({
-        nominationList: JSON.parse(localStorage.getItem("nominatedMovies"))
+        nominationList: JSON.parse(localStorage.getItem("nominatedMovies")),
       });
     }
   }
 
-  handleChange = async e => {
+  handleChange = async (e) => {
     this.setState({
       searchTerm: e.target.value,
       loading: true,
-      currentPage: 1
+      currentPage: 1,
     });
 
     const response = await axios.get(
@@ -44,25 +44,25 @@ class Shoppies extends Component {
       return;
     }
 
-    const movies = response.data.Search.map(m => {
+    const movies = response.data.Search.map((m) => {
       const movie = this.state.nominationList.find(
-        mov => mov.imdbID === m.imdbID
+        (mov) => mov.imdbID === m.imdbID
       );
 
       return {
         ...m,
-        added: movie ? true : false
+        added: movie ? true : false,
       };
     });
 
     this.setState({ movies, loading: false });
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
   };
 
-  handleAddMovie = movie => {
+  handleAddMovie = (movie) => {
     const movies = [...this.state.movies];
     const index = movies.indexOf(movie);
     const currentMovie = movies[index];
@@ -71,7 +71,7 @@ class Shoppies extends Component {
       if (this.state.nominationList.length === 4) {
         toast.info("You have completed your 5 nominations", {
           autoClose: false,
-          position: "top-left"
+          position: "top-left",
         });
       }
 
@@ -88,9 +88,9 @@ class Shoppies extends Component {
     toast.error("You have 5 nominations already");
   };
 
-  handleRemoveMovie = movie => {
+  handleRemoveMovie = (movie) => {
     const nominationList = [...this.state.nominationList];
-    const updatedList = nominationList.filter(m => m !== movie);
+    const updatedList = nominationList.filter((m) => m !== movie);
     this.setState({ nominationList: updatedList });
     toast.warning("Movie removed", { autoClose: 1500 });
     const movies = [...this.state.movies];
@@ -103,7 +103,7 @@ class Shoppies extends Component {
     removeFromLocalStorage("nominatedMovies", movie);
   };
 
-  handleSetPage = page => {
+  handleSetPage = (page) => {
     this.setState({ currentPage: page });
   };
 
