@@ -1,8 +1,8 @@
 import React from "react";
 
-const Listgroup = ({ data, caption, btnText, handleClick, ...rest }) => {
+const Listgroup = ({ data, caption, btnText, handleClick }) => {
   return (
-    <div className="card-body">
+    <div>
       <p className="font-weight-bold">{caption}</p>
       <ul className="list-group list-group-flush">
         {data.map(item => (
@@ -10,13 +10,20 @@ const Listgroup = ({ data, caption, btnText, handleClick, ...rest }) => {
             key={item.imdbID}
             className="list-group-item d-flex justify-content-between align-items-center"
           >
-            <span className="w-70">
-              {item.Title}, {item.Year}
+            <span className="d-flex align-items-center">
+              <img
+                className="mr-2"
+                style={{ height: 20 }}
+                src={item.Poster}
+                alt={item.Title}
+              />{" "}
+              <span>
+                {item.Title}, {item.Year}
+              </span>
             </span>
             <button
               onClick={() => handleClick(item)}
-              className="btn btn-success btn-sm"
-              disabled={rest.type === "searchList" ? item.added : false}
+              className="btn btn-danger btn-sm"
             >
               {btnText}
             </button>

@@ -1,32 +1,40 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Movie extends Component {
-  state = {};
-  render() {
-    return (
-      <div className="card style">
+const Movie = props => {
+  return (
+    <>
+      <div className="card style mb-5">
         <img
-          src="https://m.media-amazon.com/images/M/MV5BMjMyOTM4MDMxNV5BMl5BanBnXkFtZTcwNjIyNzExOA@@._V1_SX300.jpg"
-          alt="spiderman"
+          src={props.movie.Poster}
+          style={{ height: 300 }}
+          alt={props.movie.Title}
           className="card-img-top"
         />
         <div className="card-body">
-          <p className="card-text text-center font-weight-bold">The Avengers</p>
-          <div className="d-flex justify-content-between align-items-center">
-            <div>
-              <p>
-                <span className="font-weight-bold">Year: </span>2020
-              </p>
-              <p>
-                <span className="font-weight-bold">Type: </span>movie
-              </p>
-            </div>
-            <button className="btn btn-success btn-sm">Add movie</button>
+          <p className="card-text text-center font-weight-bold">
+            {props.movie.Title}
+          </p>
+          <div>
+            <p>
+              <span className="font-weight-bold">Year: </span>
+              {props.movie.Year}
+            </p>
+            <p>
+              <span className="font-weight-bold">Type: </span>
+              {props.movie.Type}
+            </p>
           </div>
+          <button
+            onClick={() => props.handleClick(props.movie)}
+            className="btn btn-success btn-sm btn-block mx-auto"
+            disabled={props.movie.added}
+          >
+            Add movie
+          </button>
         </div>
       </div>
-    );
-  }
-}
+    </>
+  );
+};
 
 export default Movie;

@@ -4,7 +4,6 @@ import Searchlist from "./searchlist";
 import Nominationlist from "./nominationlist";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Movie from "./movie";
 
 class Shoppies extends Component {
   state = { searchTerm: "", movies: [], nominationList: [] };
@@ -69,7 +68,6 @@ class Shoppies extends Component {
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
-        <Movie />
         <div className="row">
           <Searchlist
             moviesList={this.state.movies}
