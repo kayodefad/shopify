@@ -29,7 +29,7 @@ class Shoppies extends Component {
     e.preventDefault();
 
     const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=55ecf9c4&s=${e.target.value}`
+      `https://www.omdbapi.com/?apikey=55ecf9c4&s=${e.target.value}`
     );
 
     if (response.data.Search === undefined) {
