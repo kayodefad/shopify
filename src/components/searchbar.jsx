@@ -5,7 +5,7 @@ const Searchbar = ({ handleChange, handleSubmit }) => {
     position: "absolute",
     left: 15,
     top: "50%",
-    transform: "translateY(-50%)"
+    transform: "translateY(-50%)",
   };
 
   return (
@@ -28,6 +28,7 @@ const Searchbar = ({ handleChange, handleSubmit }) => {
               className="form-control"
               id="search"
               placeholder="Search movies"
+              autoComplete="off"
             />
           </div>
         </form>
