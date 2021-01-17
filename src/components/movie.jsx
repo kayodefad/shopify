@@ -26,7 +26,7 @@ const Movie = ({movie, handleClick}) => {
           </div>
           <button
             onClick={() => handleClick(movie)}
-            className="btn btn-success btn-sm btn-block mx-auto"
+            className="btn btn-primary btn-sm btn-block mx-auto"
             disabled={movie.added}
             style={{ cursor: `${movie.added && "not-allowed"}` }}
           >

@@ -4,7 +4,7 @@ const Listgroup = ({ data, caption, btnText, handleClick }) => {
   return (
     <div>
       <p className="font-weight-bold">
-        {caption} <span className="badge badge-secondary">{data.length}</span>
+        {caption} <span className="badge badge-primary">{data.length}</span>
       </p>
       <ul className="list-group list-group-flush">
         {data.map(item => (
