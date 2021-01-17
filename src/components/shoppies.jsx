@@ -55,7 +55,7 @@ class Shoppies extends Component {
       };
     });
 
-    this.setState({ movies, loading: false, notFound: '' });
+    this.setState({ movies, loading: false, notFound: "" });
   };
 
   handleSubmit = (e) => {
@@ -85,7 +85,7 @@ class Shoppies extends Component {
       addToLocalStorage("nominatedMovies", currentMovie);
       return;
     }
-    toast.error("You have 5 nominations already");
+    toast.error("You have 5 nominations already", { autoClose: 1500 });
   };
 
   handleRemoveMovie = (movie) => {
