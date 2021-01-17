@@ -3,7 +3,7 @@ import Listgroup from "./common/listgroup";
 
 const Nominationlist = ({ nominationList, handleRemoveMovie }) => {
   return (
-    <div className="col-lg-4">
+    <div className="col-lg-4 text-dark">
       <Listgroup
         data={nominationList}
         caption="Nominations"

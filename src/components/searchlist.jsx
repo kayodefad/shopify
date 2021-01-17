@@ -32,8 +32,8 @@ const Searchlist = props => {
 
   return (
     <>
-      <div className="col-lg-8">
-        <p>
+      <div className="col-lg-8 text-dark">
+        <p className="text-light">
           Search results:{" "}
           <span className="font-weight-bold">{`"${searchTerm}"`}</span>
         </p>

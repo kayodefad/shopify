@@ -9,7 +9,7 @@ const Searchbar = ({ handleChange, handleSubmit }) => {
   };
 
   return (
-    <div className="card mb-5">
+    <div className="card mb-5 text-dark">
       <div className="card-body">
         <form onSubmit={handleSubmit} className="mb-1">
           <label htmlFor="search" className="form-label">

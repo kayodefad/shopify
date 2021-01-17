@@ -2,14 +2,13 @@ import React from "react";
 
 const Footer = () => {
   const footerStyle = {
-    background: "#fff",
     padding: 15,
     marginTop: 50,
     textAlign: "center"
   };
 
   return (
-    <div style={footerStyle}>
+    <div className="bg-secondary" style={footerStyle}>
       Copyright &copy;{" "}
       <a
         href="http://github.com/kayodefad/"

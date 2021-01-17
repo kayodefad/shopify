@@ -3,7 +3,7 @@ import React from "react";
 const Listgroup = ({ data, caption, btnText, handleClick }) => {
   return (
     <div>
-      <p className="font-weight-bold">
+      <p className="font-weight-bold text-light">
         {caption} <span className="badge badge-primary">{data.length}</span>
       </p>
       <ul className="list-group list-group-flush">
