@@ -37,7 +37,7 @@ const Searchlist = props => {
           Search results:{" "}
           <span className="font-weight-bold">{`"${searchTerm}"`}</span>
         </p>
-        {notFound && (
+        {!notFound && (
           <Paginate
             numberOfItems={moviesList.length}
             currentPage={currentPage}

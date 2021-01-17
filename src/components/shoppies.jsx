@@ -55,7 +55,7 @@ class Shoppies extends Component {
       };
     });
 
-    this.setState({ movies, loading: false });
+    this.setState({ movies, loading: false, notFound: '' });
   };
 
   handleSubmit = (e) => {
