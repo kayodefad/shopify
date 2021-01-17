@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="container">
       <ToastContainer />
-      <h3>The Shoppies</h3>
+      <h3 className="font-weight-bold mb-3">The Shoppies</h3>
       <Shoppies />
     </div>
   );

@@ -29,7 +29,7 @@ const Movie = props => {
             className="btn btn-success btn-sm btn-block mx-auto"
             disabled={props.movie.added}
           >
-            Add movie
+            Nominate
           </button>
         </div>
       </div>

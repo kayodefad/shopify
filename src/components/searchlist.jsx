@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Paginate from "./paginate";
 import Movie from "./movie";
 import { paginate } from "../utils/paginate";
+import Loading from "./common/loading";
 
 class Searchlist extends Component {
   state = {
@@ -34,16 +35,30 @@ class Searchlist extends Component {
             numberPerPage={this.state.numberPerPage}
           />
           <div className="row">
-            {movies.map(movie => {
-              return (
-                <div key={movie.imdbID} className="col-4">
-                  <Movie
-                    movie={movie}
-                    handleClick={this.props.handleAddMovie}
-                  />
+            {this.props.loading ? (
+              <>
+                <div className="col-4">
+                  <Loading className="col-4" />
                 </div>
-              );
-            })}
+                <div className="col-4">
+                  <Loading className="col-4" />
+                </div>
+                <div className="col-4">
+                  <Loading className="col-4" />
+                </div>
+              </>
+            ) : (
+              movies.map(movie => {
+                return (
+                  <div key={movie.imdbID} className="col-4">
+                    <Movie
+                      movie={movie}
+                      handleClick={this.props.handleAddMovie}
+                    />
+                  </div>
+                );
+              })
+            )}
           </div>
         </div>
       </>
