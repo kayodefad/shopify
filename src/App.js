@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div className="App container">
-        <ToastContainer />
+        <ToastContainer hideProgressBar />
         <h3 className="font-weight-bold mb-3">The Shoppies</h3>
         <Shoppies />
       </div>
