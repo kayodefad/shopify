@@ -1,72 +1,70 @@
-import React, { Component } from "react";
+import React from "react";
 import Paginate from "./paginate";
 import Movie from "./movie";
 import { paginate } from "../utils/paginate";
 import Loading from "./common/loading";
 
-class Searchlist extends Component {
-  state = {
-    currentPage: 1,
-    numberPerPage: 3
-  };
+const Searchlist = props => {
+  const {
+    moviesList,
+    currentPage,
+    numberPerPage,
+    notFound,
+    handleAddMovie,
+    handleSetPage,
+    searchTerm,
+    loading
+  } = props;
 
-  handleSetPage = page => {
-    this.setState({ currentPage: page });
-  };
-
-  renderMovies(movies) {
-    if (this.props.notFound) return <p>No matches found</p>;
+  const renderMovies = movies => {
+    if (notFound) return <p className="container">No match found</p>;
 
     return movies.map(movie => {
       return (
         <div key={movie.imdbID} className="col-sm-6 col-md-4">
-          <Movie movie={movie} handleClick={this.props.handleAddMovie} />
+          <Movie movie={movie} handleClick={handleAddMovie} />
         </div>
       );
     });
-  }
+  };
 
-  render() {
-    const movies = paginate(
-      this.props.moviesList,
-      this.state.currentPage,
-      this.state.numberPerPage
-    );
+  const movies = paginate(moviesList, currentPage, numberPerPage);
 
-    return (
-      <>
-        <div className="col-lg-8">
-          <p>
-            Search results:{" "}
-            <span className="font-weight-bold">{`"${this.props.searchTerm}"`}</span>
-          </p>
+  return (
+    <>
+      <div className="col-lg-8">
+        <p>
+          Search results:{" "}
+          <span className="font-weight-bold">{`"${searchTerm}"`}</span>
+        </p>
+        {!notFound && (
           <Paginate
-            numberOfItems={this.props.moviesList.length}
-            currentPage={this.state.currentPage}
-            onSetPage={this.handleSetPage}
-            numberPerPage={this.state.numberPerPage}
+            numberOfItems={moviesList.length}
+            currentPage={currentPage}
+            onSetPage={handleSetPage}
+            numberPerPage={numberPerPage}
           />
-          <div className="row">
-            {this.props.loading ? (
-              <>
-                <div className="col-sm-6 col-md-4">
-                  <Loading />
-                </div>
-                <div className="col-sm-6 col-md-4">
-                  <Loading />
-                </div>
-                <div className="col-sm-6 col-md-4">
-                  <Loading />
-                </div>
-              </>
-            ) : (
-              this.renderMovies(movies)
-            )}
-          </div>
+        )}
+        <div className="row">
+          {loading ? (
+            <>
+              <div className="col-sm-6 col-md-4">
+                <Loading />
+              </div>
+              <div className="col-sm-6 col-md-4">
+                <Loading />
+              </div>
+              <div className="col-sm-6 col-md-4">
+                <Loading />
+              </div>
+            </>
+          ) : (
+            renderMovies(movies)
+          )}
         </div>
-      </>
-    );
-  }
-}
+      </div>
+    </>
+  );
+};
 
 export default Searchlist;

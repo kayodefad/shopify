@@ -1,6 +1,6 @@
 import React from "react";
 
-const Searchbar = props => {
+const Searchbar = ({ handleChange, handleSubmit }) => {
   const searchStyle = {
     position: "absolute",
     left: 15,
@@ -11,7 +11,7 @@ const Searchbar = props => {
   return (
     <div className="card mb-5">
       <div className="card-body">
-        <form onSubmit={props.handleSubmit} className="mb-1">
+        <form onSubmit={handleSubmit} className="mb-1">
           <label htmlFor="search" className="form-label">
             Movie title
           </label>
@@ -23,7 +23,7 @@ const Searchbar = props => {
             ></i>
             <input
               style={{ paddingLeft: 40, fontSize: "0.8rem" }}
-              onChange={props.handleChange}
+              onChange={handleChange}
               type="text"
               className="form-control"
               id="search"

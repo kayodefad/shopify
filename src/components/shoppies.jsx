@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Searchbar from "./searchbar";
 import Searchlist from "./searchlist";
 import Nominationlist from "./nominationlist";
+import {
+  addToLocalStorage,
+  removeFromLocalStorage
+} from "../utils/localStorageUtil";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -11,7 +15,9 @@ class Shoppies extends Component {
     notFound: false,
     movies: [],
     loading: false,
-    nominationList: []
+    nominationList: [],
+    currentPage: 1,
+    numberPerPage: 3
   };
 
   componentDidMount() {
@@ -23,16 +29,17 @@ class Shoppies extends Component {
   }
 
   handleChange = async e => {
-    this.setState({ searchTerm: e.target.value });
-
-    this.setState({ loading: true });
-    e.preventDefault();
+    this.setState({
+      searchTerm: e.target.value,
+      loading: true,
+      currentPage: 1
+    });
 
     const response = await axios.get(
       `https://www.omdbapi.com/?apikey=55ecf9c4&s=${e.target.value}`
     );
 
-    if (response.data.Search === undefined) {
+    if (!response.data.Search) {
       this.setState({ loading: false, notFound: true });
       return;
     }
@@ -51,9 +58,9 @@ class Shoppies extends Component {
     this.setState({ movies, loading: false, notFound: false });
   };
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
-  }
+  };
 
   handleAddMovie = movie => {
     const movies = [...this.state.movies];
@@ -74,24 +81,8 @@ class Shoppies extends Component {
       toast.success("Movie added successfully", { autoClose: 1500 });
       currentMovie.added = true;
 
-      // LocalStorage
-      if (localStorage.getItem("nominatedMovies")) {
-        const nominatedMovies = JSON.parse(
-          localStorage.getItem("nominatedMovies")
-        );
-        nominatedMovies.push(currentMovie);
-        localStorage.setItem(
-          "nominatedMovies",
-          JSON.stringify(nominatedMovies)
-        );
-      } else {
-        const nominatedMovies = [];
-        nominatedMovies.push(currentMovie);
-        localStorage.setItem(
-          "nominatedMovies",
-          JSON.stringify(nominatedMovies)
-        );
-      }
+      // Add to Local Storage
+      addToLocalStorage("nominatedMovies", currentMovie);
       return;
     }
     toast.error("You have 5 nominations already");
@@ -108,21 +99,29 @@ class Shoppies extends Component {
     if (currentMovie) currentMovie.added = false;
     this.setState({ movies });
 
-    // Local Storage
-    let nominatedMovies = JSON.parse(localStorage.getItem("nominatedMovies"));
-    nominatedMovies = nominatedMovies.filter(m => m.imdbID !== movie.imdbID);
-    localStorage.setItem("nominatedMovies", JSON.stringify(nominatedMovies));
+    // Remove from Local Storage
+    removeFromLocalStorage("nominatedMovies", movie);
+  };
+
+  handleSetPage = page => {
+    this.setState({ currentPage: page });
   };
 
   render() {
     return (
       <>
-        <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
+        <Searchbar
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
         <div className="row">
           <Searchlist
             moviesList={this.state.movies}
             searchTerm={this.state.searchTerm}
+            currentPage={this.state.currentPage}
+            numberPerPage={this.state.numberPerPage}
             handleAddMovie={this.handleAddMovie}
+            handleSetPage={this.handleSetPage}
             loading={this.state.loading}
             notFound={this.state.notFound}
           />

@@ -1,14 +1,14 @@
 import React from "react";
 import Listgroup from "./common/listgroup";
 
-const Nominationlist = props => {
+const Nominationlist = ({ nominationList, handleRemoveMovie }) => {
   return (
     <div className="col-lg-4">
       <Listgroup
-        data={props.nominationList}
+        data={nominationList}
         caption="Nominations"
         btnText="Remove"
-        handleClick={props.handleRemoveMovie}
+        handleClick={handleRemoveMovie}
       />
     </div>
   );
