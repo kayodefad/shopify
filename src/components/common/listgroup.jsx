@@ -20,7 +20,7 @@ const Listgroup = ({ data, caption, btnText, handleClick }) => {
                 alt={item.Title}
               />{" "}
               <span>
-                {item.Title}, {item.Year}
+                {item.Title} ({item.Year})
               </span>
             </span>
             <button
