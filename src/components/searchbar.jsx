@@ -22,7 +22,7 @@ const Searchbar = props => {
               aria-hidden="true"
             ></i>
             <input
-              style={{ paddingLeft: 40, fontSize: '0.8rem' }}
+              style={{ paddingLeft: 40, fontSize: "0.8rem" }}
               onChange={props.handleChange}
               type="text"
               className="form-control"

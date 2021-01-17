@@ -1,14 +1,19 @@
 import "./App.css";
 import Shoppies from "./components/shoppies";
 import { ToastContainer } from "react-toastify";
+import Footer from "./components/footer";
+import "./App.css";
 
 function App() {
   return (
-    <div className="container">
-      <ToastContainer />
-      <h3 className="font-weight-bold mb-3">The Shoppies</h3>
-      <Shoppies />
-    </div>
+    <>
+      <div className="App container">
+        <ToastContainer />
+        <h3 className="font-weight-bold mb-3">The Shoppies</h3>
+        <Shoppies />
+      </div>
+      <Footer />
+    </>
   );
 }
 

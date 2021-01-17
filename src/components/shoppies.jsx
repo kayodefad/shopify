@@ -6,7 +6,13 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 class Shoppies extends Component {
-  state = { searchTerm: "", movies: [], loading: false, nominationList: [] };
+  state = {
+    searchTerm: "",
+    notFound: false,
+    movies: [],
+    loading: false,
+    nominationList: []
+  };
 
   componentDidMount() {
     if (localStorage.getItem("nominatedMovies")) {
@@ -16,17 +22,20 @@ class Shoppies extends Component {
     }
   }
 
-  handleChange = ({ target: { value } }) => {
-    this.setState({ searchTerm: value });
-  };
+  handleChange = async e => {
+    this.setState({ searchTerm: e.target.value });
 
-  handleSubmit = async e => {
     this.setState({ loading: true });
     e.preventDefault();
 
     const response = await axios.get(
-      `http://www.omdbapi.com/?apikey=55ecf9c4&s=${this.state.searchTerm}`
+      `http://www.omdbapi.com/?apikey=55ecf9c4&s=${e.target.value}`
     );
+
+    if (response.data.Search === undefined) {
+      this.setState({ loading: false, notFound: true });
+      return;
+    }
 
     const movies = response.data.Search.map(m => {
       const movie = this.state.nominationList.find(
@@ -39,8 +48,12 @@ class Shoppies extends Component {
       };
     });
 
-    this.setState({ movies, loading: false });
+    this.setState({ movies, loading: false, notFound: false });
   };
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+  }
 
   handleAddMovie = movie => {
     const movies = [...this.state.movies];
@@ -48,7 +61,7 @@ class Shoppies extends Component {
     const currentMovie = movies[index];
     this.setState({ movies });
     if (this.state.nominationList.length < 5) {
-      if (this.state.nominationList.length == 4) {
+      if (this.state.nominationList.length === 4) {
         toast.info("You have completed your 5 nominations", {
           autoClose: false,
           position: "top-left"
@@ -104,16 +117,14 @@ class Shoppies extends Component {
   render() {
     return (
       <>
-        <Searchbar
-          handleChange={this.handleChange}
-          handleSubmit={this.handleSubmit}
-        />
+        <Searchbar handleChange={this.handleChange} handleSubmit={this.handleSubmit} />
         <div className="row">
           <Searchlist
             moviesList={this.state.movies}
             searchTerm={this.state.searchTerm}
             handleAddMovie={this.handleAddMovie}
             loading={this.state.loading}
+            notFound={this.state.notFound}
           />
           <Nominationlist
             nominationList={this.state.nominationList}

@@ -28,6 +28,7 @@ const Movie = props => {
             onClick={() => props.handleClick(props.movie)}
             className="btn btn-success btn-sm btn-block mx-auto"
             disabled={props.movie.added}
+            style={{ cursor: `${props.movie.added && "not-allowed"}` }}
           >
             Nominate
           </button>

@@ -18,7 +18,7 @@ const Paginate = props => {
             key={page}
             className={page === currentPage ? "page-item active" : "page-item"}
           >
-            <a className="page-link">{page}</a>
+            <span className="page-link">{page}</span>
           </li>
         ))}
       </ul>

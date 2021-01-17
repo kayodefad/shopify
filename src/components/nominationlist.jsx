@@ -3,11 +3,11 @@ import Listgroup from "./common/listgroup";
 
 const Nominationlist = props => {
   return (
-    <div className="col-4">
+    <div className="col-lg-4">
       <Listgroup
         data={props.nominationList}
         caption="Nominations"
-        btnText={<i className="fa fa-minus-circle" aria-hidden="true"></i>}
+        btnText="Remove"
         handleClick={props.handleRemoveMovie}
       />
     </div>

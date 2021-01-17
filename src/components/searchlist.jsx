@@ -14,6 +14,18 @@ class Searchlist extends Component {
     this.setState({ currentPage: page });
   };
 
+  renderMovies(movies) {
+    if (this.props.notFound) return <p>No matches found</p>;
+
+    return movies.map(movie => {
+      return (
+        <div key={movie.imdbID} className="col-sm-6 col-md-4">
+          <Movie movie={movie} handleClick={this.props.handleAddMovie} />
+        </div>
+      );
+    });
+  }
+
   render() {
     const movies = paginate(
       this.props.moviesList,
@@ -23,7 +35,7 @@ class Searchlist extends Component {
 
     return (
       <>
-        <div className="col-8">
+        <div className="col-lg-8">
           <p>
             Search results:{" "}
             <span className="font-weight-bold">{`"${this.props.searchTerm}"`}</span>
@@ -37,27 +49,18 @@ class Searchlist extends Component {
           <div className="row">
             {this.props.loading ? (
               <>
-                <div className="col-4">
-                  <Loading className="col-4" />
+                <div className="col-sm-6 col-md-4">
+                  <Loading />
                 </div>
-                <div className="col-4">
-                  <Loading className="col-4" />
+                <div className="col-sm-6 col-md-4">
+                  <Loading />
                 </div>
-                <div className="col-4">
-                  <Loading className="col-4" />
+                <div className="col-sm-6 col-md-4">
+                  <Loading />
                 </div>
               </>
             ) : (
-              movies.map(movie => {
-                return (
-                  <div key={movie.imdbID} className="col-4">
-                    <Movie
-                      movie={movie}
-                      handleClick={this.props.handleAddMovie}
-                    />
-                  </div>
-                );
-              })
+              this.renderMovies(movies)
             )}
           </div>
         </div>
