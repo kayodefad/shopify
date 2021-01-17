@@ -108,7 +108,6 @@ class Shoppies extends Component {
   };
 
   render() {
-    console.log(this.state.notFound);
     return (
       <>
         <Searchbar
