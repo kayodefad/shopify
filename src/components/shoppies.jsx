@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 class Shoppies extends Component {
   state = {
     searchTerm: "",
-    notFound: false,
+    notFound: "",
     movies: [],
     loading: false,
     nominationList: [],
@@ -40,7 +40,7 @@ class Shoppies extends Component {
     );
 
     if (!response.data.Search) {
-      this.setState({ loading: false, notFound: true });
+      this.setState({ loading: false, notFound: response.data.Error });
       return;
     }
 
@@ -55,7 +55,7 @@ class Shoppies extends Component {
       };
     });
 
-    this.setState({ movies, loading: false, notFound: false });
+    this.setState({ movies, loading: false });
   };
 
   handleSubmit = e => {
@@ -108,6 +108,7 @@ class Shoppies extends Component {
   };
 
   render() {
+    console.log(this.state.notFound);
     return (
       <>
         <Searchbar

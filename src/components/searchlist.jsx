@@ -17,7 +17,7 @@ const Searchlist = props => {
   } = props;
 
   const renderMovies = movies => {
-    if (notFound) return <p className="container">No match found</p>;
+    if (notFound) return <p className="container">{notFound}</p>;
 
     return movies.map(movie => {
       return (
@@ -37,7 +37,7 @@ const Searchlist = props => {
           Search results:{" "}
           <span className="font-weight-bold">{`"${searchTerm}"`}</span>
         </p>
-        {!notFound && (
+        {notFound && (
           <Paginate
             numberOfItems={moviesList.length}
             currentPage={currentPage}
