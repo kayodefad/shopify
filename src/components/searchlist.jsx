@@ -4,7 +4,7 @@ import Movie from "./movie";
 import { paginate } from "../utils/paginate";
 import Loading from "./common/loading";
 
-const Searchlist = props => {
+const Searchlist = (props) => {
   const {
     moviesList,
     currentPage,
@@ -13,13 +13,15 @@ const Searchlist = props => {
     handleAddMovie,
     handleSetPage,
     searchTerm,
-    loading
+    loading,
   } = props;
 
-  const renderMovies = movies => {
-    if (notFound) return <p className="container">{notFound}</p>;
+  const renderMovies = (movies) => {
+    if (notFound === "Incorrect IMDb ID.") return null;
+    
+    if (notFound) return <p className="container text-light">{notFound}</p>;
 
-    return movies.map(movie => {
+    return movies.map((movie) => {
       return (
         <div key={movie.imdbID} className="col-sm-6 col-md-4">
           <Movie movie={movie} handleClick={handleAddMovie} />
